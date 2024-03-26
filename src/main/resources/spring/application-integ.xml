@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="integServiceConfigManger" class="com.huida.learn.saga.composite.IntegServiceConfigManger">
+        <property name="integServiceConfigRegistry" ref="integServiceConfigRegistry"/>
+    </bean>
+
+    <bean id="integServiceConfigRegistry" class="com.huida.learn.saga.composite.IntegServiceConfigRegistry"/>
+
+    <bean id="integServiceConfigParser" class="com.huida.learn.saga.composite.IntegXmlConfigParser"/>
+
+    <bean id="modelActuator" class="com.huida.learn.saga.model.ModelActuator"/>
+
+    <bean id="integCompositeService" class="com.huida.learn.saga.composite.IntegCompositeService">
+        <property name="modelActuator" ref="modelActuator"/>
+        <property name="integServiceConfigManger" ref="integServiceConfigManger"/>
+    </bean>
+
+</beans>

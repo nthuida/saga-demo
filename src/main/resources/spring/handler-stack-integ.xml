@@ -1,0 +1,5 @@
+<chain>
+    <handler class="com.huida.learn.saga.journal.handler.InBoundJournalReqHandler"/>
+    <handler class="com.huida.learn.saga.reverse.handler.TransMgtHandler"/>
+    <handler class="com.huida.learn.saga.journal.handler.InBoundJournalRspHandler"/>
+</chain>

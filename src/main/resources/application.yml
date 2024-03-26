@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: saga-demo
+
+chain:
+  xml:
+    path: classpath:spring/handler-stack-integ.xml
