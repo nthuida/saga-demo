@@ -1,5 +1,6 @@
 <handlers>
-    <handler class="com.huida.learn.saga.journal.handler.InBoundJournalRspHandler"/>
-    <handler class="com.huida.learn.saga.reverse.handler.TransMgtHandler"/>
-    <handler class="com.huida.learn.saga.journal.handler.InBoundJournalReqHandler"/>
+    <handler id = "inBoundJournalRspHandler"/>
+    <handler id ="transMgtHandler"/>
+    <handler id = "inBoundJournalReqHandler"/>
+    <handler id = "modelActuatorHandler"/>
 </handlers>

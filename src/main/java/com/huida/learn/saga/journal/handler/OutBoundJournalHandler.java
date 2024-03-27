@@ -1,10 +1,13 @@
 package com.huida.learn.saga.journal.handler;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 外呼处理栈
  * @author: huida
  * @date: 2024/3/18
  **/
+@Component("outBoundJournalHandler")
 public class OutBoundJournalHandler implements Handler{
 
     private Handler nextHandler;
@@ -20,6 +23,7 @@ public class OutBoundJournalHandler implements Handler{
             nextHandler.handle(input);
         }
         afterProcess();
+
     }
 
     @Override

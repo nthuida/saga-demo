@@ -1,13 +1,20 @@
 package com.huida.learn.saga.journal.handler;
 
+import com.huida.learn.saga.journal.service.InBoundJournalHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
+ * 接入响应栈
  * @author: huida
  * @date: 2024/3/18
  **/
+@Component("inBoundJournalRspHandler")
 public class InBoundJournalRspHandler implements Handler {
 
     private Handler nextHandler;
 
+    @Autowired
     private InBoundJournalHandler inBoundJournalHandler;
 
     @Override
@@ -19,8 +26,7 @@ public class InBoundJournalRspHandler implements Handler {
             nextHandler.handle(input);
         }
         System.out.println("InBoundJournalRspHandler after");
-        //inBoundJournalHandler.afterProcess();
-
+        inBoundJournalHandler.afterProcess();
     }
 
     @Override

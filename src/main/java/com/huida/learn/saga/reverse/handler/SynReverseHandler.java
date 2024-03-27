@@ -13,7 +13,14 @@ public class SynReverseHandler implements Handler {
 
     @Override
     public void handle(Object input) {
-
+        Object output = null;
+        //处理逻辑
+        System.out.println("SynReverseHandler before");
+        // 如果需要传递给下一个处理节点，调用下一个处理节点的 handleRequest() 方法
+        if (nextHandler != null) {
+            nextHandler.handle(input);
+        }
+        System.out.println("SynReverseHandler after");
     }
 
     @Override

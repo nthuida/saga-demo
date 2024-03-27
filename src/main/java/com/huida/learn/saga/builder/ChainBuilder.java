@@ -1,53 +1,64 @@
 package com.huida.learn.saga.builder;
+
 import com.huida.learn.saga.journal.handler.Handler;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
+ * 构造接入处理链
  * @author huidamao
  * @date: 2024/3/18
  */
-@Component
+@Configuration
 public class ChainBuilder {
-    public Handler buildChainFromXML(String xmlConfigFile) {
+
+    private final ApplicationContext applicationContext;
+
+    @Value("${chain.xml.path}")
+    private String chainXmlPath;
+
+    @Autowired
+    public ChainBuilder(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
+    @Bean
+    public Handler chainHandler() {
         List<Handler> handlers = new ArrayList<>();
+        Set<String> handlerMap = new HashSet<>();
 
         try {
-            // 创建DOM解析器工厂
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            // 创建DOM解析器
             DocumentBuilder builder = factory.newDocumentBuilder();
-            // 解析XML文件
-            Document doc = builder.parse(xmlConfigFile);
+            Document doc = builder.parse(chainXmlPath);
 
-            // 获取根元素
             Element root = doc.getDocumentElement();
-
-            // 获取所有handler元素
             NodeList handlerNodes = root.getElementsByTagName("handler");
 
-            // 遍历handler元素，创建责任链节点
             for (int i = 0; i < handlerNodes.getLength(); i++) {
-                Node handlerNode = handlerNodes.item(i);
-                if (handlerNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element handlerElement = (Element) handlerNode;
-                    String handlerClassName = handlerElement.getAttribute("class");
-                    // 根据类名反射创建责任链节点实例
-                    Class<?> handlerClass = Class.forName(handlerClassName);
-                    Handler handler = (Handler) handlerClass.getDeclaredConstructor().newInstance();
-                    handlers.add(handler);
-                }
+                Element handlerElement = (Element) handlerNodes.item(i);
+                String beanId = handlerElement.getAttribute("id");
+                handlerMap.add(beanId);
             }
 
-            // 将责任链节点按照顺序连接起来
+            for (String beanId : handlerMap) {
+                Handler handler = (Handler) applicationContext.getBean(beanId);
+                handlers.add(handler);
+            }
+
             for (int i = 0; i < handlers.size() - 1; i++) {
                 Handler currentHandler = handlers.get(i);
                 Handler nextHandler = handlers.get(i + 1);
@@ -57,7 +68,6 @@ public class ChainBuilder {
             e.printStackTrace();
         }
 
-        // 返回责任链的头部节点
         return handlers.isEmpty() ? null : handlers.get(0);
     }
 }

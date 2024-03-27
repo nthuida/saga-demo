@@ -1,3 +1,0 @@
-<chain>
-    <handler class="com.huida.learn.saga.journal.handler.OutBoundJournalHandler"/>
-</chain>

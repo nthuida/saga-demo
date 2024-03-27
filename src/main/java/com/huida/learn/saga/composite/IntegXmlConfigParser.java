@@ -5,5 +5,7 @@ package com.huida.learn.saga.composite;
  * @author: huida
  * @date: 2024/3/19
  **/
+
 public class IntegXmlConfigParser {
+
 }
