@@ -8,3 +8,9 @@ spring:
 chain:
   xml:
     path: classpath:spring/handler-stack-integ.xml
+
+okhttp:
+  connectTimeout: 3
+  readTimeout: 5
+  keepAliveDuration: 5
+  maxIdleConnections: 10

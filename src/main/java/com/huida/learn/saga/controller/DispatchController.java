@@ -1,6 +1,5 @@
 package com.huida.learn.saga.controller;
 
-import com.huida.learn.saga.bo.ResBodyBO;
 import com.huida.learn.saga.http.RequestMsg;
 import com.huida.learn.saga.http.ResponseMsg;
 import com.huida.learn.saga.journal.handler.Handler;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
