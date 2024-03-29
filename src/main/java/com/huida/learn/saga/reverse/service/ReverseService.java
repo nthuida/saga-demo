@@ -4,24 +4,19 @@ import com.huida.learn.saga.journal.model.InBoundJournal;
 
 /**
  * @author: huida
- * @date: 2024/3/18
+ * @date: 2024/3/28
  **/
-public class ReverseServiceImpl {
+public interface ReverseService {
 
     /**
      * 外部冲正
      * @param journal
      */
-    public void doOutReverse(InBoundJournal journal){
-
-    }
+    void doOutReverse(InBoundJournal journal);
 
     /**
      * 内部冲正
      * @param journal
      */
-    public void doInnerReverse(InBoundJournal journal){
-
-    }
-
+    void doInnerReverse(InBoundJournal journal);
 }

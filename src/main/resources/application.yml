@@ -5,6 +5,35 @@ spring:
   application:
     name: saga-demo
 
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/saga?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: Huida@19901031
+
+    hikari:
+      # 空闲连接的最小数量
+      minimum-idle: 10
+      # 连接池最大连接数
+      maximum-pool-size: 40
+      # 自动提交
+      auto-commit: true
+      # 连接idle状态的最大时长（毫秒）
+      idle-timeout: 30000
+      # 连接池名称（可改）
+      pool-name: springHikariCP
+      # 连接的生命时长（毫秒）
+      max-lifetime: 300000
+      # 等待连接池分配连接的最大时长（毫秒）
+      connection-timeout: 30000
+      # 用来检测连接是否有效
+      connection-test-query: SELECT 1
+      # 是否是只读数据源, 做读写分离时有用, 保证slave数据源的安全
+      read-only: false
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
 chain:
   xml:
     path: classpath:spring/handler-stack-integ.xml

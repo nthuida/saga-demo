@@ -1,6 +1,6 @@
 package com.huida.learn.saga.journal.handler;
 
-import com.huida.learn.saga.bo.ResBodyBO;
+import com.huida.learn.saga.http.ResBodyBO;
 import com.huida.learn.saga.composite.IntegCompositeService;
 import com.huida.learn.saga.http.RequestMsg;
 import com.huida.learn.saga.util.ControllerContext;

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huida.learn.saga.journal.mapper.InBoundJournalMapper">
+  <resultMap id="BaseResultMap" type="com.huida.learn.saga.journal.model.InBoundJournal">
+    <id column="SYS_EVT_TRACE_ID" jdbcType="VARCHAR" property="sysEvtTraceId" />
+    <id column="TX_TYPE_IND" jdbcType="VARCHAR" property="txTypeInd" />
+    <id column="SYS_TX_CODE" jdbcType="VARCHAR" property="sysTxCode" />
+    <result column="SYS_REQ_TIME" jdbcType="TIMESTAMP" property="sysReqTime" />
+    <result column="SYS_RESP_TIME" jdbcType="TIMESTAMP" property="sysRespTime" />
+    <result column="SYS_TX_STATUS" jdbcType="VARCHAR" property="sysTxStatus" />
+    <result column="RVRS_STCD" jdbcType="VARCHAR" property="rvrsStcd" />
+    <result column="SYS_RESP_CODE" jdbcType="VARCHAR" property="sysRespCode" />
+    <result column="SYS_RESP_DESC" jdbcType="VARCHAR" property="sysRespDesc" />
+    <result column="TXN_DT" jdbcType="DATE" property="txnDt" />
+    <result column="TXN_TM" jdbcType="VARCHAR" property="txnTm" />
+    <result column="INPT_MSG" jdbcType="VARCHAR" property="inptMsg" />
+    <result column="OTPT_MSG" jdbcType="VARCHAR" property="otptMsg" />
+    <result column="LAST_MOD_TM" jdbcType="TIMESTAMP" property="lastModTm" />
+    <result column="RCRD_RGTM" jdbcType="TIMESTAMP" property="rcrdRgtm" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    SYS_EVT_TRACE_ID, TX_TYPE_IND, SYS_TX_CODE, SYS_REQ_TIME, SYS_RESP_TIME, SYS_TX_STATUS, 
+    RVRS_STCD, SYS_RESP_CODE, SYS_RESP_DESC, TXN_DT, TXN_TM, INPT_MSG, OTPT_MSG, LAST_MOD_TM, 
+    RCRD_RGTM
+  </sql>
+
+  <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inbound_journal
+    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
+      and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
+      and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" >
+    delete from inbound_journal
+    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
+      and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
+      and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.huida.learn.saga.journal.model.InBoundJournal">
+    insert into inbound_journal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sysEvtTraceId != null">
+        SYS_EVT_TRACE_ID,
+      </if>
+      <if test="txTypeInd != null">
+        TX_TYPE_IND,
+      </if>
+      <if test="sysTxCode != null">
+        SYS_TX_CODE,
+      </if>
+      <if test="sysReqTime != null">
+        SYS_REQ_TIME,
+      </if>
+      <if test="sysRespTime != null">
+        SYS_RESP_TIME,
+      </if>
+      <if test="sysTxStatus != null">
+        SYS_TX_STATUS,
+      </if>
+      <if test="rvrsStcd != null">
+        RVRS_STCD,
+      </if>
+      <if test="sysRespCode != null">
+        SYS_RESP_CODE,
+      </if>
+      <if test="sysRespDesc != null">
+        SYS_RESP_DESC,
+      </if>
+      <if test="txnDt != null">
+        TXN_DT,
+      </if>
+      <if test="txnTm != null">
+        TXN_TM,
+      </if>
+      <if test="inptMsg != null">
+        INPT_MSG,
+      </if>
+      <if test="otptMsg != null">
+        OTPT_MSG,
+      </if>
+      <if test="lastModTm != null">
+        LAST_MOD_TM,
+      </if>
+      <if test="rcrdRgtm != null">
+        RCRD_RGTM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sysEvtTraceId != null">
+        #{sysEvtTraceId,jdbcType=VARCHAR},
+      </if>
+      <if test="txTypeInd != null">
+        #{txTypeInd,jdbcType=VARCHAR},
+      </if>
+      <if test="sysTxCode != null">
+        #{sysTxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sysReqTime != null">
+        #{sysReqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysRespTime != null">
+        #{sysRespTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTxStatus != null">
+        #{sysTxStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="rvrsStcd != null">
+        #{rvrsStcd,jdbcType=VARCHAR},
+      </if>
+      <if test="sysRespCode != null">
+        #{sysRespCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sysRespDesc != null">
+        #{sysRespDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="txnDt != null">
+        #{txnDt,jdbcType=DATE},
+      </if>
+      <if test="txnTm != null">
+        #{txnTm,jdbcType=VARCHAR},
+      </if>
+      <if test="inptMsg != null">
+        #{inptMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="otptMsg != null">
+        #{otptMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModTm != null">
+        #{lastModTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcrdRgtm != null">
+        #{rcrdRgtm,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huida.learn.saga.journal.model.InBoundJournal">
+    update inbound_journal
+    <set>
+      <if test="sysReqTime != null">
+        SYS_REQ_TIME = #{sysReqTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysRespTime != null">
+        SYS_RESP_TIME = #{sysRespTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sysTxStatus != null">
+        SYS_TX_STATUS = #{sysTxStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="rvrsStcd != null">
+        RVRS_STCD = #{rvrsStcd,jdbcType=VARCHAR},
+      </if>
+      <if test="sysRespCode != null">
+        SYS_RESP_CODE = #{sysRespCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sysRespDesc != null">
+        SYS_RESP_DESC = #{sysRespDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="txnDt != null">
+        TXN_DT = #{txnDt,jdbcType=DATE},
+      </if>
+      <if test="txnTm != null">
+        TXN_TM = #{txnTm,jdbcType=VARCHAR},
+      </if>
+      <if test="inptMsg != null">
+        INPT_MSG = #{inptMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="otptMsg != null">
+        OTPT_MSG = #{otptMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModTm != null">
+        LAST_MOD_TM = #{lastModTm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcrdRgtm != null">
+        RCRD_RGTM = #{rcrdRgtm,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
+      and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
+      and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huida.learn.saga.journal.model.InBoundJournal">
+    update inbound_journal
+    set SYS_REQ_TIME = #{sysReqTime,jdbcType=TIMESTAMP},
+      SYS_RESP_TIME = #{sysRespTime,jdbcType=TIMESTAMP},
+      SYS_TX_STATUS = #{sysTxStatus,jdbcType=VARCHAR},
+      RVRS_STCD = #{rvrsStcd,jdbcType=VARCHAR},
+      SYS_RESP_CODE = #{sysRespCode,jdbcType=VARCHAR},
+      SYS_RESP_DESC = #{sysRespDesc,jdbcType=VARCHAR},
+      TXN_DT = #{txnDt,jdbcType=DATE},
+      TXN_TM = #{txnTm,jdbcType=VARCHAR},
+      INPT_MSG = #{inptMsg,jdbcType=VARCHAR},
+      OTPT_MSG = #{otptMsg,jdbcType=VARCHAR},
+      LAST_MOD_TM = #{lastModTm,jdbcType=TIMESTAMP},
+      RCRD_RGTM = #{rcrdRgtm,jdbcType=TIMESTAMP}
+    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
+      and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
+      and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

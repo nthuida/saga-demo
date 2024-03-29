@@ -1,0 +1,54 @@
+CREATE TABLE `inbound_journal` (
+   `SYS_EVT_TRACE_ID` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '全局事件跟踪号',
+   `TX_TYPE_IND` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '交易类型标志',
+   `SYS_TX_CODE` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '交易服务编码',
+   `SYS_REQ_TIME` timestamp NULL DEFAULT NULL COMMENT '发起方交易时间',
+   `SYS_RESP_TIME` timestamp NULL DEFAULT NULL COMMENT '服务响应时间',
+   `SYS_TX_STATUS` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '服务响应状态',
+   `RVRS_STCD` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '冲正状态',
+   `SYS_RESP_CODE` varchar(12) DEFAULT NULL COMMENT '响应码',
+   `SYS_RESP_DESC` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '服务响应描述',
+   `TXN_DT` date DEFAULT NULL COMMENT '交易日期',
+   `TXN_TM` varchar(6) DEFAULT NULL COMMENT '交易时间',
+   `INPT_MSG` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '请求报文',
+   `OTPT_MSG` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '响应报文',
+   `LAST_MOD_TM` timestamp NULL DEFAULT NULL COMMENT '最后修改时间',
+   `RCRD_RGTM` timestamp NULL DEFAULT NULL COMMENT '记录登记时间',
+   PRIMARY KEY (`SYS_EVT_TRACE_ID`,`TX_TYPE_IND`,`SYS_TX_CODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `outbound_journal` (
+    `SYS_EVT_TRACE_ID` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '全局事件跟踪号',
+    `TX_TYPE_IND` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '交易类型标志',
+    `SYS_TX_CODE` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '交易服务编码',
+    `STEP_SN` int DEFAULT NULL COMMENT '步骤序号',
+    `SYS_REQ_TIME` timestamp NULL DEFAULT NULL COMMENT '发起方交易时间',
+    `SYS_RESP_TIME` timestamp NULL DEFAULT NULL COMMENT '服务响应时间',
+    `SYS_TX_STATUS` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '服务响应状态',
+    `RVRS_STCD` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '冲正状态',
+    `SYS_RESP_CODE` varchar(12) DEFAULT NULL COMMENT '响应码',
+    `SYS_RESP_DESC` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '服务响应描述',
+    `TXN_DT` date DEFAULT NULL COMMENT '交易日期',
+    `TXN_TM` varchar(6) DEFAULT NULL COMMENT '交易时间',
+    `INPT_MSG` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '请求报文',
+    `OTPT_MSG` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '响应报文',
+    `LAST_MOD_TM` timestamp NULL DEFAULT NULL COMMENT '最后修改时间',
+    `RCRD_RGTM` timestamp NULL DEFAULT NULL COMMENT '记录登记时间',
+    PRIMARY KEY (`SYS_EVT_TRACE_ID`,`TX_TYPE_IND`,`SYS_TX_CODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `exception_journal` (
+     `SYS_EVT_TRACE_ID` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '全局事件跟踪号',
+     `TX_TYPE_IND` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '交易类型标志',
+     `SYS_TX_CODE` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '交易服务编码',
+     `RVRS_STCD` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '冲正状态',
+     `REV_RESP_CODE` varchar(20) DEFAULT NULL COMMENT '冲正响应码',
+     `RVRS_CNT` int DEFAULT NULL COMMENT '冲正次数',
+     `NXT_RVRS_TMC` timestamp NULL DEFAULT NULL COMMENT '下次冲正时间',
+     `TXN_DT` date DEFAULT NULL COMMENT '交易日期',
+     `TXN_TM` varchar(6) DEFAULT NULL COMMENT '交易时间',
+     `LAST_MOD_TM` timestamp NULL DEFAULT NULL COMMENT '最后修改时间',
+     `RCRD_RGTM` timestamp NULL DEFAULT NULL COMMENT '记录登记时间',
+     PRIMARY KEY (`SYS_EVT_TRACE_ID`,`TX_TYPE_IND`,`SYS_TX_CODE`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

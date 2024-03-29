@@ -1,36 +1,14 @@
 package com.huida.learn.saga.journal.service;
 
-import org.springframework.stereotype.Service;
+import com.huida.learn.saga.journal.model.InBoundJournal;
 
 /**
  * @author: huida
- * @date: 2024/3/18
+ * @date: 2024/3/28
  **/
-@Service
-public class InboundJournalService {
+public interface InboundJournalService {
 
-    public void beforeProcess(){
+    InBoundJournal getInBoundJournal(String sysEvtTraceId, String txTypeInd, String sysTxCode);
 
-    }
-
-    private void normalProcess(){
-
-    }
-
-    private void reverseProcess(){
-
-    }
-
-
-    public void afterProcess(){
-
-    }
-
-    private void normalAfterProcess(){
-
-    }
-
-    private void reverseAfterProcess(){
-
-    }
+    void insert(InBoundJournal inBoundJournal);
 }

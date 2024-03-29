@@ -1,6 +1,6 @@
 package com.huida.learn.saga.journal.handler;
 
-import com.huida.learn.saga.journal.service.InBoundJournalHandler;
+import com.huida.learn.saga.journal.service.impl.InBoundJournalHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

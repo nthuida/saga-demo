@@ -1,7 +1,7 @@
 package com.huida.learn.saga.model;
 
 
-import com.huida.learn.saga.bo.ResBodyBO;
+import com.huida.learn.saga.http.ResBodyBO;
 import com.huida.learn.saga.http.RequestMsg;
 import com.huida.learn.saga.model.actor.unit.DcpIntegService;
 import org.springframework.stereotype.Component;

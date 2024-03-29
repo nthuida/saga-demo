@@ -1,4 +1,4 @@
-package com.huida.learn.saga.bo;
+package com.huida.learn.saga.http;
 
 /**
  * 响应的body
