@@ -1,8 +1,7 @@
 package com.huida.learn.saga.http;
 
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,10 +15,10 @@ import java.util.concurrent.TimeUnit;
  * @date: 2024/3/27
  **/
 @Component
+@Slf4j
 public class HttpClient implements InitializingBean {
 
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(HttpClient.class);
     private static  OkHttpClient okHttpClient ;
 
     @Value("${okhttp.maxIdleConnections}")
@@ -144,11 +143,11 @@ public class HttpClient implements InitializingBean {
 
     private void errorResponseLog(Response response,String url) throws Exception{
         if(response ==null){
-            LOGGER.error("okhttpclient 调用失败，url={},  message=response is null",url);
+            log.error("okhttpclient 调用失败，url={},  message=response is null",url);
             throw  new Exception(String.format("调用失败，url=%s,  status=null",url));
         }
         if(! response.isSuccessful()){
-            LOGGER.error("okhttpclient 调用失败，url={},  message={}",url,response.body().string());
+            log.error("okhttpclient 调用失败，url={},  message={}",url,response.body().string());
             throw  new Exception(String.format("调用失败，url=%s,  status=%s",url,response.code()));
         }
     }

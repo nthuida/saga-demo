@@ -8,13 +8,10 @@ import org.apache.ibatis.annotations.Param;
 public interface OutBoundJournalMapper {
     int deleteByPrimaryKey(@Param("sysEvtTraceId") String sysEvtTraceId, @Param("txTypeInd") String txTypeInd, @Param("sysTxCode") String sysTxCode);
 
-    int insert(OutBoundJournal record);
-
     int insertSelective(OutBoundJournal record);
 
     OutBoundJournal selectByPrimaryKey(@Param("sysEvtTraceId") String sysEvtTraceId, @Param("txTypeInd") String txTypeInd, @Param("sysTxCode") String sysTxCode);
 
     int updateByPrimaryKeySelective(OutBoundJournal record);
 
-    int updateByPrimaryKey(OutBoundJournal record);
 }

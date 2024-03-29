@@ -18,6 +18,7 @@
     SYS_EVT_TRACE_ID, TX_TYPE_IND, SYS_TX_CODE, RVRS_STCD, REV_RESP_CODE, RVRS_CNT, NXT_RVRS_TMC, 
     TXN_DT, TXN_TM, LAST_MOD_TM, RCRD_RGTM
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -26,22 +27,14 @@
       and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
       and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="map">
     delete from exception_journal
     where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
       and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
       and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.huida.learn.saga.reverse.model.ExceptionJournal">
-    insert into exception_journal (SYS_EVT_TRACE_ID, TX_TYPE_IND, SYS_TX_CODE, 
-      RVRS_STCD, REV_RESP_CODE, RVRS_CNT, 
-      NXT_RVRS_TMC, TXN_DT, TXN_TM, 
-      LAST_MOD_TM, RCRD_RGTM)
-    values (#{sysEvtTraceId,jdbcType=VARCHAR}, #{txTypeInd,jdbcType=VARCHAR}, #{sysTxCode,jdbcType=VARCHAR}, 
-      #{rvrsStcd,jdbcType=VARCHAR}, #{revRespCode,jdbcType=VARCHAR}, #{rvrsCnt,jdbcType=INTEGER}, 
-      #{nxtRvrsTmc,jdbcType=TIMESTAMP}, #{txnDt,jdbcType=DATE}, #{txnTm,jdbcType=VARCHAR}, 
-      #{lastModTm,jdbcType=TIMESTAMP}, #{rcrdRgtm,jdbcType=TIMESTAMP})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.huida.learn.saga.reverse.model.ExceptionJournal">
     insert into exception_journal
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -115,6 +108,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.huida.learn.saga.reverse.model.ExceptionJournal">
     update exception_journal
     <set>
@@ -147,18 +141,5 @@
       and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
       and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.huida.learn.saga.reverse.model.ExceptionJournal">
-    update exception_journal
-    set RVRS_STCD = #{rvrsStcd,jdbcType=VARCHAR},
-      REV_RESP_CODE = #{revRespCode,jdbcType=VARCHAR},
-      RVRS_CNT = #{rvrsCnt,jdbcType=INTEGER},
-      NXT_RVRS_TMC = #{nxtRvrsTmc,jdbcType=TIMESTAMP},
-      TXN_DT = #{txnDt,jdbcType=DATE},
-      TXN_TM = #{txnTm,jdbcType=VARCHAR},
-      LAST_MOD_TM = #{lastModTm,jdbcType=TIMESTAMP},
-      RCRD_RGTM = #{rcrdRgtm,jdbcType=TIMESTAMP}
-    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
-      and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
-      and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
-  </update>
+
 </mapper>

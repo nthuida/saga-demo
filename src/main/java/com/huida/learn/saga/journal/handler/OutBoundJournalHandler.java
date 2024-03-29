@@ -1,5 +1,6 @@
 package com.huida.learn.saga.journal.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
  * @date: 2024/3/18
  **/
 @Component("outBoundJournalHandler")
+@Slf4j
 public class OutBoundJournalHandler implements Handler{
 
     private Handler nextHandler;
@@ -17,7 +19,6 @@ public class OutBoundJournalHandler implements Handler{
     public void handle(Object input) {
         //处理逻辑
         beforeProcess();
-        System.out.println("InBoundJournalReqHandler");
         // 如果需要传递给下一个处理节点，调用下一个处理节点的 handleRequest() 方法
         if (nextHandler != null) {
             nextHandler.handle(input);

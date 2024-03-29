@@ -14,8 +14,8 @@ public class IntegServiceConfigManger {
     @Autowired
     private IntegServiceConfigRegistry integServiceConfigRegistry;
 
-    public DcpIntegService getService(String id) {
-        return integServiceConfigRegistry.getService(id);
+    public DcpIntegService getService(String sysTxCode) {
+        return integServiceConfigRegistry.getService(sysTxCode);
     }
 
 }

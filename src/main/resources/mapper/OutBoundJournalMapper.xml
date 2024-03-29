@@ -24,6 +24,7 @@
     SYS_TX_STATUS, RVRS_STCD, SYS_RESP_CODE, SYS_RESP_DESC, TXN_DT, TXN_TM, INPT_MSG, 
     OTPT_MSG, LAST_MOD_TM, RCRD_RGTM
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -32,26 +33,14 @@
       and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
       and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="map">
     delete from outbound_journal
     where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
       and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
       and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.huida.learn.saga.journal.model.OutBoundJournal">
-    insert into outbound_journal (SYS_EVT_TRACE_ID, TX_TYPE_IND, SYS_TX_CODE, 
-      STEP_SN, SYS_REQ_TIME, SYS_RESP_TIME, 
-      SYS_TX_STATUS, RVRS_STCD, SYS_RESP_CODE, 
-      SYS_RESP_DESC, TXN_DT, TXN_TM, 
-      INPT_MSG, OTPT_MSG, LAST_MOD_TM, 
-      RCRD_RGTM)
-    values (#{sysEvtTraceId,jdbcType=VARCHAR}, #{txTypeInd,jdbcType=VARCHAR}, #{sysTxCode,jdbcType=VARCHAR}, 
-      #{stepSn,jdbcType=INTEGER}, #{sysReqTime,jdbcType=TIMESTAMP}, #{sysRespTime,jdbcType=TIMESTAMP}, 
-      #{sysTxStatus,jdbcType=VARCHAR}, #{rvrsStcd,jdbcType=VARCHAR}, #{sysRespCode,jdbcType=VARCHAR}, 
-      #{sysRespDesc,jdbcType=VARCHAR}, #{txnDt,jdbcType=DATE}, #{txnTm,jdbcType=VARCHAR}, 
-      #{inptMsg,jdbcType=VARCHAR}, #{otptMsg,jdbcType=VARCHAR}, #{lastModTm,jdbcType=TIMESTAMP}, 
-      #{rcrdRgtm,jdbcType=TIMESTAMP})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.huida.learn.saga.journal.model.OutBoundJournal">
     insert into outbound_journal
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -198,25 +187,6 @@
         RCRD_RGTM = #{rcrdRgtm,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
-      and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
-      and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.huida.learn.saga.journal.model.OutBoundJournal">
-    update outbound_journal
-    set STEP_SN = #{stepSn,jdbcType=INTEGER},
-      SYS_REQ_TIME = #{sysReqTime,jdbcType=TIMESTAMP},
-      SYS_RESP_TIME = #{sysRespTime,jdbcType=TIMESTAMP},
-      SYS_TX_STATUS = #{sysTxStatus,jdbcType=VARCHAR},
-      RVRS_STCD = #{rvrsStcd,jdbcType=VARCHAR},
-      SYS_RESP_CODE = #{sysRespCode,jdbcType=VARCHAR},
-      SYS_RESP_DESC = #{sysRespDesc,jdbcType=VARCHAR},
-      TXN_DT = #{txnDt,jdbcType=DATE},
-      TXN_TM = #{txnTm,jdbcType=VARCHAR},
-      INPT_MSG = #{inptMsg,jdbcType=VARCHAR},
-      OTPT_MSG = #{otptMsg,jdbcType=VARCHAR},
-      LAST_MOD_TM = #{lastModTm,jdbcType=TIMESTAMP},
-      RCRD_RGTM = #{rcrdRgtm,jdbcType=TIMESTAMP}
     where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
       and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
       and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}

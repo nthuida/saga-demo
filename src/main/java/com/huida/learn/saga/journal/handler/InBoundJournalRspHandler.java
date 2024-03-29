@@ -1,6 +1,8 @@
 package com.huida.learn.saga.journal.handler;
 
 import com.huida.learn.saga.journal.service.impl.InBoundJournalHandler;
+import com.huida.learn.saga.util.ControllerContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Component;
  * @author: huida
  * @date: 2024/3/18
  **/
+@Slf4j
 @Component("inBoundJournalRspHandler")
 public class InBoundJournalRspHandler implements Handler {
 
@@ -19,14 +22,16 @@ public class InBoundJournalRspHandler implements Handler {
 
     @Override
     public void handle(Object input) {
-        //处理逻辑
-        System.out.println("InBoundJournalRspHandler before");
-        // 如果需要传递给下一个处理节点，调用下一个处理节点的 handleRequest() 方法
-        if (nextHandler != null) {
+        log.info("InBoundJournalRspHandler start");
+        try {
+            ControllerContext.getContext().setInput(input);
             nextHandler.handle(input);
+        } catch (Exception e){
+            log.error("InBoundJournalRspHandler error", e);
+        } finally {
+            inBoundJournalHandler.afterProcess();
         }
-        System.out.println("InBoundJournalRspHandler after");
-        inBoundJournalHandler.afterProcess();
+
     }
 
     @Override

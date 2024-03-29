@@ -8,13 +8,10 @@ import org.apache.ibatis.annotations.Param;
 public interface ExceptionJournalMapper {
     int deleteByPrimaryKey(@Param("sysEvtTraceId") String sysEvtTraceId, @Param("txTypeInd") String txTypeInd, @Param("sysTxCode") String sysTxCode);
 
-    int insert(ExceptionJournal record);
-
     int insertSelective(ExceptionJournal record);
 
     ExceptionJournal selectByPrimaryKey(@Param("sysEvtTraceId") String sysEvtTraceId, @Param("txTypeInd") String txTypeInd, @Param("sysTxCode") String sysTxCode);
 
     int updateByPrimaryKeySelective(ExceptionJournal record);
 
-    int updateByPrimaryKey(ExceptionJournal record);
 }

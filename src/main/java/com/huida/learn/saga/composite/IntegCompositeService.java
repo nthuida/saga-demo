@@ -19,9 +19,9 @@ public class IntegCompositeService {
     @Autowired
     private ModelActuator modelActuator;
 
-    public Object execute(RequestMsg request) {
-
-        return modelActuator.execute(request, integServiceConfigManger.getService(request.getServiceId()));
+    public Object execute(Object request) {
+        RequestMsg requestMsg = (RequestMsg) request;
+        return modelActuator.execute(requestMsg, integServiceConfigManger.getService(requestMsg.getSysTxCode()));
     }
 
 }

@@ -14,6 +14,27 @@ public class ControllerContext {
 
     private Map<Object,Object> swapMap;
 
+    /**
+     * 系统事件跟踪ID
+     */
+    private static final String SYS_EVT_TRACE_ID = "SYS_EVT_TRACE_ID";
+
+    /**
+     * 请求信息
+     */
+    private static final String INPUT_REQUEST = "input_request";
+
+    /**
+     * 响应信息
+     */
+    private static final String OUTPUT_RESPONSE = "output_response";
+
+
+    /**
+     * 外呼信息
+     */
+    private static final String OUT_MSG = "out_msg";
+
 
     private ControllerContext() {
         swapMap = new HashMap<Object,Object>();
@@ -38,6 +59,39 @@ public class ControllerContext {
 
     public void put(Object key, Object value) {
         swapMap.put(key, value);
+    }
+
+
+    public void setSysEvtTraceId(String SysEvtTraceId) {
+        put(SYS_EVT_TRACE_ID, SysEvtTraceId);
+    }
+
+    public String getSysEvtTraceId() {
+        return (String) get(SYS_EVT_TRACE_ID);
+    }
+
+    public void setInput(Object input) {
+        put(INPUT_REQUEST, input);
+    }
+
+    public Object getInput() {
+        return get(INPUT_REQUEST);
+    }
+
+    public void setOutput(Object output) {
+        put(OUTPUT_RESPONSE, output);
+    }
+
+    public Object getOutput() {
+        return get(OUTPUT_RESPONSE);
+    }
+
+    public void setOutCallMsg(Object outMsg) {
+        put(OUT_MSG, outMsg);
+    }
+
+    public Object getOutCallMsg() {
+        return get(OUT_MSG);
     }
 
 

@@ -24,6 +24,11 @@ public class InboundJournalServiceImpl implements InboundJournalService {
     }
 
     @Override
+    public void updateByPrimaryKey(InBoundJournal inBoundJournal) {
+        inBoundJournalMapper.updateByPrimaryKeySelective(inBoundJournal);
+    }
+
+    @Override
     public void insert(InBoundJournal inBoundJournal) {
         inBoundJournalMapper.insertSelective(inBoundJournal);
     }

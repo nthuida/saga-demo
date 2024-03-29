@@ -1,50 +1,35 @@
 package com.huida.learn.saga.http;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
 /**
  * 请求报文
  * @author: huida
  * @date: 2024/3/27
  **/
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RequestMsg {
 
     /**
-     * 全局事务id
+     * 全局事务ID
      */
-    private String globalTransactionId;
+    private String sysEvtTraceId;
 
     /**
-     * 服务id
+     * 交易类型
      */
-    private String serviceId;
+    private String txTypeInd;
 
     /**
-     * 服务种类
+     * 交易码
      */
-    private String type;
+    private String sysTxCode;
 
-    public String getGlobalTransactionId() {
-        return globalTransactionId;
-    }
-
-    public void setGlobalTransactionId(String globalTransactionId) {
-        this.globalTransactionId = globalTransactionId;
-    }
-
-    public String getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

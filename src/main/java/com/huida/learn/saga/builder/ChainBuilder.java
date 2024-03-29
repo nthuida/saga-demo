@@ -38,7 +38,7 @@ public class ChainBuilder {
     @Bean
     public Handler chainHandler() {
         List<Handler> handlers = new ArrayList<>();
-        Set<String> handlerMap = new HashSet<>();
+        List<String> handlerList = new ArrayList<>();
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -51,10 +51,10 @@ public class ChainBuilder {
             for (int i = 0; i < handlerNodes.getLength(); i++) {
                 Element handlerElement = (Element) handlerNodes.item(i);
                 String beanId = handlerElement.getAttribute("id");
-                handlerMap.add(beanId);
+                handlerList.add(beanId);
             }
 
-            for (String beanId : handlerMap) {
+            for (String beanId : handlerList) {
                 Handler handler = (Handler) applicationContext.getBean(beanId);
                 handlers.add(handler);
             }

@@ -1,34 +1,36 @@
 package com.huida.learn.saga.http;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
 /**
  * 响应的body
  * @author: huida
  * @date: 2024/3/27
  **/
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ResBodyBO {
 
-    private String status;
+    private String sysEvtTraceId;
 
-    private String globalTransactionId;
+    private String txTypeInd;
 
-    public ResBodyBO(String status,String globalTransactionId) {
-        this.status = status;
-        this.globalTransactionId = globalTransactionId;
-    }
+    private String sysTxCode;
 
-    public String getStatus() {
-        return status;
-    }
+    private String sysTxStatus;
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    private String rvrsStcd;
 
-    public String getGlobalTransactionId() {
-        return globalTransactionId;
-    }
+    private String sysRespCode;
 
-    public void setGlobalTransactionId(String globalTransactionId) {
-        this.globalTransactionId = globalTransactionId;
-    }
+    private String sysRespDesc;
+
+
+
+
 }

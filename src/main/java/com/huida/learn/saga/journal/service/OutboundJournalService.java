@@ -9,4 +9,10 @@ import com.huida.learn.saga.journal.model.OutBoundJournal;
 public interface OutboundJournalService {
 
     OutBoundJournal getOutBoundJournal(String sysEvtTraceId, String txTypeInd, String sysTxCode);
+
+    void beforeProcess();
+
+    void afterProcess();
+
+
 }

@@ -4,6 +4,7 @@ import com.huida.learn.saga.http.ResBodyBO;
 import com.huida.learn.saga.composite.IntegCompositeService;
 import com.huida.learn.saga.http.RequestMsg;
 import com.huida.learn.saga.util.ControllerContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
  * @author: huida
  * @date: 2024/3/18
  **/
+@Slf4j
 @Component("modelActuatorHandler")
 public class ModelActuatorHandler implements Handler{
 
@@ -22,16 +24,19 @@ public class ModelActuatorHandler implements Handler{
 
     @Override
     public void handle(Object input) {
-        ResBodyBO output = (ResBodyBO)integCompositeService.execute((RequestMsg) input);
+        log.info("ModelActuatorHandler start");
+        try {
+            ResBodyBO output = (ResBodyBO)integCompositeService.execute(input);
 
-        ControllerContext.getContext().put("response",output);
-        System.out.println("ModelActuatorHandler before");
-        // 如果需要传递给下一个处理节点，调用下一个处理节点的 handleRequest() 方法
-        if (nextHandler != null) {
-            nextHandler.handle(input);
+            ControllerContext.getContext().setOutput(output);
+            // 如果需要传递给下一个处理节点，调用下一个处理节点的 handleRequest() 方法
+            if (nextHandler != null) {
+                nextHandler.handle(input);
+            }
+        } catch (Exception e) {
+            log.error("ModelActuatorHandler error", e);
         }
 
-        System.out.println("ModelActuatorHandler after");
     }
 
     @Override

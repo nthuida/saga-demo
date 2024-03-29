@@ -14,5 +14,4 @@ public interface InBoundJournalMapper {
 
     int updateByPrimaryKeySelective(InBoundJournal record);
 
-    int updateByPrimaryKey(InBoundJournal record);
 }

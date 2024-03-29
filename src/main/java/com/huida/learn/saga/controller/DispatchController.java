@@ -29,7 +29,7 @@ public class DispatchController {
     public ResponseMsg start(HttpServletRequest request, @RequestBody RequestMsg requestMsg) {
 
         chainHandler.handle(requestMsg);
-        return new ResponseMsg<>(ControllerContext.getContext().get("response"));
+        return new ResponseMsg<>(ControllerContext.getContext().getOutput());
     }
 
 }

@@ -1,6 +1,10 @@
 package com.huida.learn.saga.reverse.handler;
 
+import com.huida.learn.saga.enums.StatusEnum;
+import com.huida.learn.saga.http.ResBodyBO;
 import com.huida.learn.saga.journal.handler.Handler;
+import com.huida.learn.saga.util.ControllerContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,6 +12,7 @@ import org.springframework.stereotype.Component;
  * @author: huida
  * @date: 2024/3/18
  **/
+@Slf4j
 @Component("transMgtHandler")
 public class TransMgtHandler implements Handler {
 
@@ -15,13 +20,19 @@ public class TransMgtHandler implements Handler {
 
     @Override
     public void handle(Object input) {
-        //处理逻辑
-        System.out.println("TransMgtHandler before");
-        // 如果需要传递给下一个处理节点，调用下一个处理节点的 handleRequest() 方法
-        if (nextHandler != null) {
-           nextHandler.handle(input);
+        log.info("TransMgtHandler start");
+        try {
+            nextHandler.handle(input);
+            ResBodyBO resBodyBO = (ResBodyBO)ControllerContext.getContext().getOutput();
+            if (!StatusEnum.SUCCESS.getCode().equals(resBodyBO.getSysTxCode())) {
+                //冲正
+
+            }
+
+        } catch (Exception e) {
+            log.error("TransMgtHandler error", e);
         }
-        System.out.println("TransMgtHandler after");
+
     }
 
     @Override

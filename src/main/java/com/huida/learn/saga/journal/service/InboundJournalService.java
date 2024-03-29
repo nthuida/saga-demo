@@ -10,5 +10,7 @@ public interface InboundJournalService {
 
     InBoundJournal getInBoundJournal(String sysEvtTraceId, String txTypeInd, String sysTxCode);
 
+    void updateByPrimaryKey(InBoundJournal inBoundJournal);
+
     void insert(InBoundJournal inBoundJournal);
 }

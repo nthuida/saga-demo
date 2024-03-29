@@ -182,22 +182,5 @@
       and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
       and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.huida.learn.saga.journal.model.InBoundJournal">
-    update inbound_journal
-    set SYS_REQ_TIME = #{sysReqTime,jdbcType=TIMESTAMP},
-      SYS_RESP_TIME = #{sysRespTime,jdbcType=TIMESTAMP},
-      SYS_TX_STATUS = #{sysTxStatus,jdbcType=VARCHAR},
-      RVRS_STCD = #{rvrsStcd,jdbcType=VARCHAR},
-      SYS_RESP_CODE = #{sysRespCode,jdbcType=VARCHAR},
-      SYS_RESP_DESC = #{sysRespDesc,jdbcType=VARCHAR},
-      TXN_DT = #{txnDt,jdbcType=DATE},
-      TXN_TM = #{txnTm,jdbcType=VARCHAR},
-      INPT_MSG = #{inptMsg,jdbcType=VARCHAR},
-      OTPT_MSG = #{otptMsg,jdbcType=VARCHAR},
-      LAST_MOD_TM = #{lastModTm,jdbcType=TIMESTAMP},
-      RCRD_RGTM = #{rcrdRgtm,jdbcType=TIMESTAMP}
-    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
-      and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
-      and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
-  </update>
+
 </mapper>
