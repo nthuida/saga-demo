@@ -7,7 +7,6 @@ import com.huida.learn.saga.journal.model.OutBoundJournal;
 import com.huida.learn.saga.journal.service.OutboundJournalService;
 import com.huida.learn.saga.reverse.model.ReverseResult;
 import com.huida.learn.saga.util.ControllerContext;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,6 +80,16 @@ public class OutboundJournalServiceImpl implements OutboundJournalService {
         journal.setSysRespDesc(result.getRespDesc());
         journal.setSysRespTime(new Date());
         outboundJournalMapper.updateByPrimaryKeySelective(journal);
+        if (StatusEnum.SUCCESS.getCode().equals(result.getStatus())) {
+            //冲正成功，更新原交易的状态
+            OutBoundJournal originJournal = new OutBoundJournal();
+            originJournal.setSysEvtTraceId(outBoundJournal.getSysEvtTraceId());
+            originJournal.setSysTxCode(outBoundJournal.getSysTxCode());
+            originJournal.setTxTypeInd(TypeEnum.NORMAL.getCode());
+            originJournal.setRvrsStcd(StatusEnum.SUCCESS.getCode());
+            originJournal.setSysTxStatus(StatusEnum.FAIL.getCode());
+            outboundJournalMapper.updateByPrimaryKeySelective(originJournal);
+        }
     }
 
     /**
