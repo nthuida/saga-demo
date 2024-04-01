@@ -14,14 +14,11 @@ import org.springframework.stereotype.Component;
 public class IntegCompositeService {
 
     @Autowired
-    private IntegServiceConfigManger integServiceConfigManger;
-
-    @Autowired
     private ModelActuator modelActuator;
 
     public Object execute(Object request) {
         RequestMsg requestMsg = (RequestMsg) request;
-        return modelActuator.execute(requestMsg, integServiceConfigManger.getService(requestMsg.getSysTxCode()));
+        return modelActuator.execute(requestMsg);
     }
 
 }

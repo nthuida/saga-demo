@@ -25,7 +25,7 @@
     OTPT_MSG, LAST_MOD_TM, RCRD_RGTM
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from outbound_journal
@@ -34,7 +34,7 @@
       and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="map">
+  <delete id="deleteByPrimaryKey" >
     delete from outbound_journal
     where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
       and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
@@ -191,4 +191,15 @@
       and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
       and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
   </update>
+
+
+  <select id="getReverseList"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from outbound_journal
+    where SYS_EVT_TRACE_ID = #{sysEvtTraceId,jdbcType=VARCHAR}
+    and TX_TYPE_IND = #{txTypeInd,jdbcType=VARCHAR}
+    and SYS_TX_STATUS = '00'
+    order by STEP_SN desc
+  </select>
 </mapper>

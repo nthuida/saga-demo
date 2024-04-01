@@ -1,6 +1,5 @@
 package com.huida.learn.saga.composite;
 
-import com.huida.learn.saga.model.actor.unit.DcpIntegService;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,7 +10,4 @@ import org.springframework.stereotype.Component;
 @Component
 public class IntegServiceConfigRegistry {
 
-    public DcpIntegService getService(String id) {
-        return null;
-     }
 }

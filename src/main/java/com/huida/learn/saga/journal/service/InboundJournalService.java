@@ -8,7 +8,7 @@ import com.huida.learn.saga.journal.model.InBoundJournal;
  **/
 public interface InboundJournalService {
 
-    InBoundJournal getInBoundJournal(String sysEvtTraceId, String txTypeInd, String sysTxCode);
+    InBoundJournal getJournalByPrimaryKey(String sysEvtTraceId, String txTypeInd, String sysTxCode);
 
     void updateByPrimaryKey(InBoundJournal inBoundJournal);
 

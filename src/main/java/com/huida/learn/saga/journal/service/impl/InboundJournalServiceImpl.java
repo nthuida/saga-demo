@@ -19,7 +19,7 @@ public class InboundJournalServiceImpl implements InboundJournalService {
     private InBoundJournalMapper inBoundJournalMapper;
 
     @Override
-    public InBoundJournal getInBoundJournal(String sysEvtTraceId, String txTypeInd, String sysTxCode) {
+    public InBoundJournal getJournalByPrimaryKey(String sysEvtTraceId, String txTypeInd, String sysTxCode) {
         return inBoundJournalMapper.selectByPrimaryKey(sysEvtTraceId,txTypeInd,sysTxCode);
     }
 

@@ -1,6 +1,7 @@
 package com.huida.learn.saga.reverse.service;
 
 import com.huida.learn.saga.journal.model.InBoundJournal;
+import com.huida.learn.saga.reverse.model.ReverseResult;
 
 /**
  * @author: huida
@@ -12,11 +13,11 @@ public interface ReverseService {
      * 外部冲正
      * @param journal
      */
-    void doOutReverse(InBoundJournal journal);
+    ReverseResult doOutReverse(InBoundJournal journal);
 
     /**
      * 内部冲正
      * @param journal
      */
-    void doInnerReverse(InBoundJournal journal);
+    ReverseResult doInnerReverse(InBoundJournal journal);
 }

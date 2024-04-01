@@ -19,7 +19,7 @@
     TXN_DT, TXN_TM, LAST_MOD_TM, RCRD_RGTM
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from exception_journal

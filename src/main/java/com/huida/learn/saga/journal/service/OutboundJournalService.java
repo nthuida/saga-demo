@@ -1,6 +1,9 @@
 package com.huida.learn.saga.journal.service;
 
 import com.huida.learn.saga.journal.model.OutBoundJournal;
+import com.huida.learn.saga.reverse.model.ReverseResult;
+
+import java.util.List;
 
 /**
  * @author: huida
@@ -10,9 +13,15 @@ public interface OutboundJournalService {
 
     OutBoundJournal getOutBoundJournal(String sysEvtTraceId, String txTypeInd, String sysTxCode);
 
-    void beforeProcess();
+    void normalBeforeProcess();
 
-    void afterProcess();
+    void normalAfterProcess();
+
+    void reverseBeforeProcess(OutBoundJournal outBoundJournal);
+
+    void reverseAfterProcess(OutBoundJournal outBoundJournal, ReverseResult reverseResult);
+
+    List<OutBoundJournal> getReverseList(String sysEvtTraceId, String txTypeInd);
 
 
 }

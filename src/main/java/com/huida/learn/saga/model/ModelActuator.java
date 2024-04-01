@@ -5,7 +5,6 @@ import com.huida.learn.saga.http.ResBodyBO;
 import com.huida.learn.saga.http.RequestMsg;
 import com.huida.learn.saga.journal.model.OutBoundJournal;
 import com.huida.learn.saga.journal.service.OutboundJournalService;
-import com.huida.learn.saga.model.actor.unit.DcpIntegService;
 import com.huida.learn.saga.util.ControllerContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class ModelActuator {
     @Autowired
     private OutboundJournalService outboundJournalService;
 
-    public Object execute(RequestMsg request, DcpIntegService dcpIntegService){
+    public Object execute(RequestMsg request){
         // 模拟模型的执行
         ResBodyBO resBodyBO = new ResBodyBO();
         resBodyBO.setSysEvtTraceId(request.getSysEvtTraceId());
@@ -46,22 +45,22 @@ public class ModelActuator {
             //模拟外呼的交易码
             outBoundJournal.setSysTxCode(getUUID().substring(0, 9));
             ControllerContext.getContext().setOutCallMsg(outBoundJournal);
-            outboundJournalService.beforeProcess();
+            outboundJournalService.normalBeforeProcess();
             //模拟外呼的结果
             boolean flag = new Random().nextBoolean();
             if (flag) {
                 outBoundJournal.setSysTxStatus(StatusEnum.SUCCESS.getCode());
                 outBoundJournal.setSysRespCode("00000000");
-                outBoundJournal.setSysRespDesc("成功");
+                outBoundJournal.setSysRespDesc("交易成功");
             } else {
                 outBoundJournal.setSysTxStatus(StatusEnum.FAIL.getCode());
                 outBoundJournal.setSysRespCode("00000001");
                 outBoundJournal.setSysRespDesc("交易失败");
             }
-            ControllerContext.getContext().setOutput(outBoundJournal);
-            outboundJournalService.afterProcess();
+            ControllerContext.getContext().setOutCallMsg(outBoundJournal);
+            outboundJournalService.normalAfterProcess();
             if (!flag) {
-                resBodyBO.setSysTxStatus(StatusEnum.UNKNOWN.getCode());
+                resBodyBO.setSysTxStatus(StatusEnum.FAIL.getCode());
                 resBodyBO.setSysRespCode("00000001");
                 resBodyBO.setSysRespDesc("交易失败");
                 break;
