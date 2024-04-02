@@ -44,4 +44,6 @@ public class OutBoundJournal {
 
     private Date rcrdRgtm;
 
+    private String compensate;
+
 }

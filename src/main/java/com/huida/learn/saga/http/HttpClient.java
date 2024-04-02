@@ -151,4 +151,41 @@ public class HttpClient implements InitializingBean {
             throw  new Exception(String.format("调用失败，url=%s,  status=%s",url,response.code()));
         }
     }
+
+
+    public boolean callService(String service, Map<String, String> args) {
+        boolean result = false;
+        // 构建请求URL
+        String url = "http://your-service-url/" + service;
+
+        // 构建请求体
+        FormBody.Builder formBodyBuilder = new FormBody.Builder();
+        for (Map.Entry<String, String> entry : args.entrySet()) {
+            formBodyBuilder.add(entry.getKey(), entry.getValue());
+        }
+        RequestBody requestBody = formBodyBuilder.build();
+
+        // 创建OkHttpClient实例
+        OkHttpClient client = new OkHttpClient();
+
+        // 创建POST请求
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+
+        // 发送请求并处理响应
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                result = true;
+                log.info("Response from service " + service + ": " + response.body().string());
+            } else {
+                log.info("Failed to call service " + service + ", response code: " + response.code());
+            }
+        } catch (IOException e) {
+            log.error("Error calling service " + service, e);
+        }
+
+        return result;
+    }
 }

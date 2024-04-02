@@ -1,6 +1,7 @@
 package com.huida.learn.saga.composite;
 
 import com.huida.learn.saga.enums.StatusEnum;
+import com.huida.learn.saga.http.HttpClient;
 import com.huida.learn.saga.http.RequestMsg;
 import com.huida.learn.saga.http.ResponseBody;
 import com.huida.learn.saga.journal.model.OutBoundJournal;
@@ -9,7 +10,6 @@ import com.huida.learn.saga.util.ControllerContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -28,6 +28,10 @@ public class CompositeService {
 
     @Autowired
     private ServiceModelConfigParser serviceModelConfigParser;
+
+    @Autowired
+    private HttpClient okHttpClient;
+
 
     public Object execute(RequestMsg request){
 
@@ -66,10 +70,12 @@ public class CompositeService {
             outBoundJournal.setTxTypeInd(request.getTxTypeInd());
             outBoundJournal.setStepSn(i+1);
             outBoundJournal.setSysTxCode(service);
+            outBoundJournal.setCompensate(compensate);
             ControllerContext.getContext().setOutCallMsg(outBoundJournal);
             outboundJournalService.normalBeforeProcess();
             // 在此处调用相应的原子服务
             log.info("Calling service: " + service + " with args: " + args);
+            //boolean flag = okHttpClient.callService(service, args);
             //模拟外呼的结果
             boolean flag = new Random().nextBoolean();
             if (flag) {
