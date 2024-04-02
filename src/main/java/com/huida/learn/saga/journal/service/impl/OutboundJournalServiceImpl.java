@@ -52,7 +52,7 @@ public class OutboundJournalServiceImpl implements OutboundJournalService {
         OutBoundJournal journal = new OutBoundJournal();
         journal.setSysEvtTraceId(outBoundJournal.getSysEvtTraceId());
         journal.setSysTxCode(outBoundJournal.getSysTxCode());
-        journal.setTxTypeInd(TypeEnum.INNER_REVERSE.getCode());
+        journal.setTxTypeInd(TypeEnum.REVERSE.getCode());
         journal.setStepSn(outBoundJournal.getStepSn());
         journal.setSysTxStatus(StatusEnum.DOING.getCode());
         journal.setRvrsStcd(StatusEnum.UNDO.getCode());
@@ -74,7 +74,7 @@ public class OutboundJournalServiceImpl implements OutboundJournalService {
         OutBoundJournal journal = new OutBoundJournal();
         journal.setSysEvtTraceId(outBoundJournal.getSysEvtTraceId());
         journal.setSysTxCode(outBoundJournal.getSysTxCode());
-        journal.setTxTypeInd(TypeEnum.INNER_REVERSE.getCode());
+        journal.setTxTypeInd(TypeEnum.REVERSE.getCode());
         journal.setSysTxStatus(result.getStatus());
         journal.setSysRespCode(result.getRespCode());
         journal.setSysRespDesc(result.getRespDesc());

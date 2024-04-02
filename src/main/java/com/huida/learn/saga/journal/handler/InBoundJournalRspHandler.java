@@ -29,7 +29,7 @@ public class InBoundJournalRspHandler implements Handler {
         } catch (Exception e){
             log.error("InBoundJournalRspHandler error", e);
         } finally {
-            inBoundJournalHandler.afterProcess();
+            inBoundJournalHandler.normalAfterProcess();
         }
 
     }

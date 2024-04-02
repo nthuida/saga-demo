@@ -1,6 +1,6 @@
 <handlers>
     <handler id = "inBoundJournalRspHandler"/>
-    <handler id ="transMgtHandler"/>
+    <handler id = "transMgtHandler"/>
     <handler id = "inBoundJournalReqHandler"/>
     <handler id = "modelActuatorHandler"/>
 </handlers>

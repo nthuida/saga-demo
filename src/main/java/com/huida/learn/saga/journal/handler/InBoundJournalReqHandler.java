@@ -24,7 +24,7 @@ public class InBoundJournalReqHandler implements Handler{
     public void handle(Object input) {
         log.info("InBoundJournalReqHandler start");
         try {
-            inBoundJournalHandler.beforeProcess();
+            inBoundJournalHandler.normalBeforeProcess();
             nextHandler.handle(input);
         } catch (Exception e) {
             log.error("InBoundJournalReqHandler error", e);

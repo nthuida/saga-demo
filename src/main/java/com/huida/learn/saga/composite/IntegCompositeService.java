@@ -2,7 +2,7 @@ package com.huida.learn.saga.composite;
 
 import com.huida.learn.saga.enums.StatusEnum;
 import com.huida.learn.saga.http.RequestMsg;
-import com.huida.learn.saga.http.ResBodyBO;
+import com.huida.learn.saga.http.ResponseBody;
 import com.huida.learn.saga.journal.model.OutBoundJournal;
 import com.huida.learn.saga.journal.service.OutboundJournalService;
 import com.huida.learn.saga.util.ControllerContext;
@@ -27,14 +27,14 @@ public class IntegCompositeService {
 
     public Object execute(RequestMsg request){
         // 模拟模型的执行
-        ResBodyBO resBodyBO = new ResBodyBO();
-        resBodyBO.setSysEvtTraceId(request.getSysEvtTraceId());
-        resBodyBO.setTxTypeInd(request.getTxTypeInd());
-        resBodyBO.setSysTxCode(request.getSysTxCode());
-        resBodyBO.setSysTxStatus(StatusEnum.SUCCESS.getCode());
-        resBodyBO.setRvrsStcd(StatusEnum.UNDO.getCode());
-        resBodyBO.setSysRespCode("00000000");
-        resBodyBO.setSysRespDesc("成功");
+        ResponseBody responseBody = new ResponseBody();
+        responseBody.setSysEvtTraceId(request.getSysEvtTraceId());
+        responseBody.setTxTypeInd(request.getTxTypeInd());
+        responseBody.setSysTxCode(request.getSysTxCode());
+        responseBody.setSysTxStatus(StatusEnum.SUCCESS.getCode());
+        responseBody.setRvrsStcd(StatusEnum.UNDO.getCode());
+        responseBody.setSysRespCode("00000000");
+        responseBody.setSysRespDesc("交易成功");
 
         for (int i=0; i<3; i++) {
             log.info("模拟模型执行第{}次", i+1);
@@ -60,13 +60,13 @@ public class IntegCompositeService {
             ControllerContext.getContext().setOutCallMsg(outBoundJournal);
             outboundJournalService.normalAfterProcess();
             if (!flag) {
-                resBodyBO.setSysTxStatus(StatusEnum.FAIL.getCode());
-                resBodyBO.setSysRespCode("00000001");
-                resBodyBO.setSysRespDesc("交易失败");
+                responseBody.setSysTxStatus(StatusEnum.FAIL.getCode());
+                responseBody.setSysRespCode("00000001");
+                responseBody.setSysRespDesc("交易失败");
                 break;
             }
         }
-        return resBodyBO;
+        return responseBody;
     }
 
     public static String getUUID() {

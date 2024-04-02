@@ -1,7 +1,7 @@
 package com.huida.learn.saga.reverse.handler;
 
 import com.huida.learn.saga.enums.StatusEnum;
-import com.huida.learn.saga.http.ResBodyBO;
+import com.huida.learn.saga.http.ResponseBody;
 import com.huida.learn.saga.journal.handler.Handler;
 import com.huida.learn.saga.journal.model.InBoundJournal;
 import com.huida.learn.saga.journal.service.InboundJournalService;
@@ -35,32 +35,32 @@ public class TransMgtHandler implements Handler {
         log.info("TransMgtHandler start");
         try {
             nextHandler.handle(input);
-            ResBodyBO resBodyBO = (ResBodyBO)ControllerContext.getContext().getOutput();
-            if (!StatusEnum.SUCCESS.getCode().equals(resBodyBO.getSysTxStatus())) {
+            ResponseBody responseBody = (ResponseBody)ControllerContext.getContext().getOutput();
+            if (!StatusEnum.SUCCESS.getCode().equals(responseBody.getSysTxStatus())) {
                 //冲正
-                InBoundJournal journal = inboundJournalService.getJournalByPrimaryKey(resBodyBO.getSysEvtTraceId(), resBodyBO.getTxTypeInd(), resBodyBO.getSysTxCode());
+                InBoundJournal journal = inboundJournalService.getJournalByPrimaryKey(responseBody.getSysEvtTraceId(), responseBody.getTxTypeInd(), responseBody.getSysTxCode());
                 if (journal != null) {
                     try {
                         ReverseResult result = reverseService.doInnerReverse(journal);
                         if (!ObjectUtils.isEmpty(result)) {
                             if (StatusEnum.SUCCESS.getCode().equals(result.getStatus())) {
                                 //冲正成功
-                                resBodyBO.setRvrsStcd(result.getStatus());
-                                resBodyBO.setSysTxStatus(StatusEnum.FAIL.getCode());
+                                responseBody.setRvrsStcd(result.getStatus());
+                                responseBody.setSysTxStatus(StatusEnum.FAIL.getCode());
 
                             } else {
                                 //冲正失败
-                                resBodyBO.setRvrsStcd(result.getStatus());
-                                resBodyBO.setSysTxStatus(StatusEnum.UNKNOWN.getCode());
+                                responseBody.setRvrsStcd(result.getStatus());
+                                responseBody.setSysTxStatus(StatusEnum.UNKNOWN.getCode());
                             }
                         }
                     } catch (Exception e) {
                         //冲正异常
-                        resBodyBO.setRvrsStcd(StatusEnum.UNKNOWN.getCode());
-                        resBodyBO.setSysTxStatus(StatusEnum.UNKNOWN.getCode());
+                        responseBody.setRvrsStcd(StatusEnum.UNKNOWN.getCode());
+                        responseBody.setSysTxStatus(StatusEnum.UNKNOWN.getCode());
                         log.error("TransMgtHandler doInnerReverse error", e);
                     } finally {
-                        ControllerContext.getContext().setOutput(resBodyBO);
+                        ControllerContext.getContext().setOutput(responseBody);
                     }
                 }
             }
