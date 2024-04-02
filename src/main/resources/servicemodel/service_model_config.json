@@ -1,0 +1,54 @@
+[
+  {
+    "serviceName": "A01925879",
+    "steps": [
+      {
+        "service": "reserveInventory",
+        "args": {
+          "orderId": "order123",
+          "productId": "product456"
+        },
+        "compensate": "compensateReserveInventory"
+      },
+      {
+        "condition": "paymentStatus.equals(\"successful\")",
+        "service": "processPayment",
+        "args": {
+          "orderId": "order123",
+          "paymentMethod": "creditCard789"
+        },
+        "compensate": "compensateProcessPayment"
+      },
+      {
+        "service": "shipOrder",
+        "args": {
+          "orderId": "order123",
+          "shippingAddress": "address456"
+        },
+        "compensate": "compensateShipOrder"
+      }
+    ]
+  },
+  {
+    "serviceName": "A01925880",
+    "steps": [
+      {
+        "service": "reserveInventory",
+        "args": {
+          "orderId": "order456",
+          "productId": "product789"
+        },
+        "compensate": "compensateReserveInventory"
+      },
+      {
+        "condition": "paymentStatus.equals(\"successful\")",
+        "service": "processPayment",
+        "args": {
+          "orderId": "order456",
+          "paymentMethod": "paypal123"
+        },
+        "compensate": "compensateProcessPayment"
+      }
+    ]
+  }
+]

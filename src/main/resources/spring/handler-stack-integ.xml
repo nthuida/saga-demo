@@ -2,5 +2,5 @@
     <handler id = "inBoundJournalRspHandler"/>
     <handler id = "transMgtHandler"/>
     <handler id = "inBoundJournalReqHandler"/>
-    <handler id = "modelActuatorHandler"/>
+    <handler id = "compositeServiceHandler"/>
 </handlers>

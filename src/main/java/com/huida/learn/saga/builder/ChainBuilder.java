@@ -1,6 +1,7 @@
 package com.huida.learn.saga.builder;
 
 import com.huida.learn.saga.journal.handler.Handler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -23,6 +24,7 @@ import java.util.Set;
  * @date: 2024/3/18
  */
 @Configuration
+@Slf4j
 public class ChainBuilder {
 
     private final ApplicationContext applicationContext;
@@ -65,7 +67,7 @@ public class ChainBuilder {
                 currentHandler.setNextHandler(nextHandler);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("ChainBuilder 解析xml文件失败", e);
         }
 
         return handlers.isEmpty() ? null : handlers.get(0);

@@ -43,6 +43,10 @@ chain:
   xml:
     path: classpath:spring/handler-stack-integ.xml
 
+model:
+  json:
+    path: src/main/resources/servicemodel/service_model_config.json
+
 okhttp:
   connectTimeout: 3
   readTimeout: 5
