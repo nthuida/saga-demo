@@ -9,8 +9,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +36,8 @@ public class ServiceModelConfigParser implements InitializingBean {
         JSONParser parser = new JSONParser();
 
         try {
-            Object obj = parser.parse(new FileReader(configFile));
+            InputStream inputStream = ServiceModelConfigParser.class.getClassLoader().getResourceAsStream(configFile);
+            Object obj = parser.parse(new InputStreamReader(inputStream));
             JSONArray configArray = (JSONArray) obj;
 
             for (Object modelObj : configArray) {

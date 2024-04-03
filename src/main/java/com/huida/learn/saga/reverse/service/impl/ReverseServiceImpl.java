@@ -2,7 +2,6 @@ package com.huida.learn.saga.reverse.service.impl;
 
 import com.huida.learn.saga.enums.StatusEnum;
 import com.huida.learn.saga.enums.TypeEnum;
-import com.huida.learn.saga.http.HttpClient;
 import com.huida.learn.saga.journal.model.InBoundJournal;
 import com.huida.learn.saga.journal.model.OutBoundJournal;
 import com.huida.learn.saga.journal.service.OutboundJournalService;
@@ -32,9 +31,6 @@ public class ReverseServiceImpl implements ReverseService {
 
     @Autowired
     private ExceptionJournalMapper exceptionJournalMapper;
-
-    @Autowired
-    private HttpClient httpClient;
 
 
     /**
@@ -124,6 +120,11 @@ public class ReverseServiceImpl implements ReverseService {
         }
 
         return result;
+    }
+
+    @Override
+    public List<ExceptionJournal> getReverseJournal() {
+        return exceptionJournalMapper.getReverseJournal();
     }
 
     private void beforeProcess(InBoundJournal journal){

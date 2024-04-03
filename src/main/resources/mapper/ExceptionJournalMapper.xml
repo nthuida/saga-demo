@@ -142,4 +142,11 @@
       and SYS_TX_CODE = #{sysTxCode,jdbcType=VARCHAR}
   </update>
 
+  <select id="getReverseJournal"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from exception_journal
+    where RVRS_STCD != '00'
+  </select>
+
 </mapper>

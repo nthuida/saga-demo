@@ -45,7 +45,7 @@ chain:
 
 model:
   json:
-    path: src/main/resources/servicemodel/service_model_config.json
+    path: servicemodel/service_model_config.json
 
 okhttp:
   connectTimeout: 3

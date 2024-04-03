@@ -71,25 +71,30 @@ public class OutboundJournalServiceImpl implements OutboundJournalService {
 
     @Override
     public void reverseAfterProcess(OutBoundJournal outBoundJournal, ReverseResult result){
-        OutBoundJournal journal = new OutBoundJournal();
-        journal.setSysEvtTraceId(outBoundJournal.getSysEvtTraceId());
-        journal.setSysTxCode(outBoundJournal.getSysTxCode());
-        journal.setTxTypeInd(TypeEnum.REVERSE.getCode());
-        journal.setSysTxStatus(result.getStatus());
-        journal.setSysRespCode(result.getRespCode());
-        journal.setSysRespDesc(result.getRespDesc());
-        journal.setSysRespTime(new Date());
-        outboundJournalMapper.updateByPrimaryKeySelective(journal);
+        OutBoundJournal reverseJournal = new OutBoundJournal();
+        reverseJournal.setSysEvtTraceId(outBoundJournal.getSysEvtTraceId());
+        reverseJournal.setSysTxCode(outBoundJournal.getSysTxCode());
+        reverseJournal.setTxTypeInd(TypeEnum.REVERSE.getCode());
+        reverseJournal.setSysTxStatus(result.getStatus());
+        reverseJournal.setSysRespCode(result.getRespCode());
+        reverseJournal.setSysRespDesc(result.getRespDesc());
+        reverseJournal.setSysRespTime(new Date());
+        //更新冲正交易的状态
+        outboundJournalMapper.updateByPrimaryKeySelective(reverseJournal);
+
+        OutBoundJournal originJournal = new OutBoundJournal();
+        originJournal.setSysEvtTraceId(outBoundJournal.getSysEvtTraceId());
+        originJournal.setSysTxCode(outBoundJournal.getSysTxCode());
+        originJournal.setTxTypeInd(TypeEnum.NORMAL.getCode());
         if (StatusEnum.SUCCESS.getCode().equals(result.getStatus())) {
             //冲正成功，更新原交易的状态
-            OutBoundJournal originJournal = new OutBoundJournal();
-            originJournal.setSysEvtTraceId(outBoundJournal.getSysEvtTraceId());
-            originJournal.setSysTxCode(outBoundJournal.getSysTxCode());
-            originJournal.setTxTypeInd(TypeEnum.NORMAL.getCode());
             originJournal.setRvrsStcd(StatusEnum.SUCCESS.getCode());
             originJournal.setSysTxStatus(StatusEnum.FAIL.getCode());
-            outboundJournalMapper.updateByPrimaryKeySelective(originJournal);
+        } else {
+            originJournal.setRvrsStcd(result.getStatus());
         }
+        //更新原交易的状态
+        outboundJournalMapper.updateByPrimaryKeySelective(originJournal);
     }
 
     /**
