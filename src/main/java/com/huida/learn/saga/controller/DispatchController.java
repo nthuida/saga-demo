@@ -4,6 +4,7 @@ import com.huida.learn.saga.enums.TypeEnum;
 import com.huida.learn.saga.http.RequestMsg;
 import com.huida.learn.saga.http.ResponseMsg;
 import com.huida.learn.saga.journal.handler.Handler;
+import com.huida.learn.saga.journal.service.impl.InBoundJournalHandler;
 import com.huida.learn.saga.reverse.handler.SynReverseHandler;
 import com.huida.learn.saga.util.ControllerContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,17 @@ public class DispatchController {
     @Autowired
     private SynReverseHandler synReverseHandler;
 
+    @Autowired
+    private InBoundJournalHandler inBoundJournalHandler;
+
     @RequestMapping(value = "/start", method = RequestMethod.POST)
     public ResponseMsg start(HttpServletRequest request, @RequestBody RequestMsg requestMsg) {
         if (TypeEnum.NORMAL.getCode().equals(requestMsg.getTxTypeInd())) {
             chainHandler.handle(requestMsg);
-        } else {
+        } else if (TypeEnum.REVERSE.getCode().equals(requestMsg.getTxTypeInd())){
             synReverseHandler.handle(requestMsg);
+        } else {
+            inBoundJournalHandler.queryJournal(requestMsg);
         }
         return new ResponseMsg<>(ControllerContext.getContext().getOutput());
     }

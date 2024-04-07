@@ -106,4 +106,26 @@ public class InBoundJournalHandler {
         inboundJournalService.updateByPrimaryKey(updateJournal);
 
     }
+
+    public void queryJournal(Object input) {
+        RequestMsg requestMsg = (RequestMsg) input;
+        InBoundJournal journal = inboundJournalService.getJournalByPrimaryKey(requestMsg.getSysEvtTraceId(), TypeEnum.NORMAL.getCode(), requestMsg.getSysTxCode());
+        ResponseBody res = new ResponseBody();
+        res.setSysEvtTraceId(requestMsg.getSysEvtTraceId());
+        res.setSysTxCode(requestMsg.getSysTxCode());
+        res.setTxTypeInd(requestMsg.getTxTypeInd());
+
+        if (journal != null) {
+            res.setSysTxStatus(journal.getSysTxStatus());
+            res.setSysRespCode(journal.getSysRespCode());
+            res.setSysRespDesc(journal.getSysRespDesc());
+            res.setRvrsStcd(journal.getRvrsStcd());
+
+        } else {
+            res.setSysTxStatus(StatusEnum.FAIL.getCode());
+            res.setSysRespCode("000000001");
+            res.setSysRespDesc("交易不存在");
+        }
+        ControllerContext.getContext().setOutput(res);
+    }
 }

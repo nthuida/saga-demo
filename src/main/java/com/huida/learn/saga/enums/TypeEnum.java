@@ -8,7 +8,8 @@ package com.huida.learn.saga.enums;
 public enum TypeEnum {
 
     NORMAL("0", "正交易"),
-    REVERSE("1", "冲正交易");
+    REVERSE("1", "冲正交易"),
+    QUERY("2", "查询交易");
 
 
     private String code;
